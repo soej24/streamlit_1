@@ -1,6 +1,8 @@
-###### 파일을 업로드 하는 방법 #########
-###### 이미지 파일, CSV 파일 업로드
+########파일 업로드 방법########
+########이미지 파일, csv 파일 업로드########
 
+from numpy import isfortran
+from sklearn.ensemble import IsolationForest
 import streamlit as st
 from PIL import Image
 import pandas as pd
@@ -19,37 +21,53 @@ def save_uploaded_file(directory, file) :
     return st.success("Saved file : {} in {}".format(file.name, directory))
 
 def main():
-    
-    # 사이드바 만들기 
-    st.title('파일 업로드 프로젝트')
+        # 사이드바 만들기
 
-    menu = ['Image', 'CSV', 'About']
-    choice = st.sidebar.selectbox('메뉴', menu)
+        st.title('파일 업로드 프로젝트')
 
-    if choice == menu[0] :
-        st.subheader('이미지 파일 업로드')
-        upload_file = st.file_uploader('이미지 파일 선택', type=['jpg','png','jpeg'])
-        if upload_file is not None :
-            print(upload_file.name)
-            print(upload_file.size)
-            print(upload_file.type)
-            current_time = datetime.now()
-            print(current_time.isoformat().replace(':', '_'))
-         
-            new_filename = current_time.isoformat().replace(':', '_') + '.jpg'
+        menu = ['Image','CSV','About']
+        choice = st.sidebar.selectbox('메뉴',menu)
 
-            upload_file.name = new_filename
-            save_uploaded_file('temp', upload_file)
-    
+        if choice == menu[0]:
+            st.subheader('이미지 파일 업로드')
+            upload_file = st.file_uploader('이미지 파일 선택',type=['jpg','png','jpeg'])
+            if upload_file is not None:  #있으면
+                # print(upload_file.name)
+                # print(upload_file.size)
+                # print(upload_file.type)
 
-        # 파일명을 유니크하게 만들어서 저장해야 한다.
-        # 현재시간을 활용해서, 파일명을 만든다. 
-     
-    elif choice == menu[1] :
-        st.subheader('CSV 파일 업로드')
+                #파일명을 유니크하게 만들어서 저장
+                # 현재시간을 활용해서 만든다.
+                current_time = datetime.now()
+                print(current_time.isoformat().replace(':','_'))
+                new_filename = current_time.isoformat().replace(':','_') + '.jpg'
+                upload_file.name = new_filename
+                save_uploaded_file('temp', upload_file)
 
-    else :
-        st.subheader('파일 업로드 프로젝트 입니다.')
 
-if __name__=='__main__' :
+
+
+        elif choice == menu[1]:
+            st.subheader('CSV 파일 업로드')
+
+            upload_file = st.file_uploader('CSV 파일 선택',type=['csv'])
+
+            if upload_file is not None:
+
+            #파일명을 유니크하게 만들어서 저장
+            # 현재시간을 활용해서 만든다.
+                current_time = datetime.now()
+                print(current_time.isoformat().replace(':','_'))
+                new_filename = current_time.isoformat().replace(':','_') + '.csv'
+                upload_file.name = new_filename
+                save_uploaded_file('temp', upload_file)
+
+
+                
+        else:
+            st.subheader('파일 업로드 프로젝트 입니다.')
+
+
+
+if __name__ == '__main__':
     main()
