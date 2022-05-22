@@ -1,5 +1,3 @@
-from turtle import pd
-from sqlalchemy import column
 import streamlit as st
 import pandas as pd
 
@@ -39,7 +37,7 @@ def main() :
         # df.sort_values('petal_length', ascending=False)
         st.dataframe(df.sort_values('petal_length', ascending=False))
 
-    # 버튼을 똑같은거 쓰면 에러남
+    # 두번째 방법 (버튼을 똑같은거 쓰면 에러남)
     status = st.radio('정렬방법 선택2', my_order)
     
     if status == my_order[0] :
