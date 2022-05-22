@@ -9,7 +9,7 @@ def main() :
     choice = st.sidebar.selectbox('메뉴',menu)
     
     if choice == menu[0]:
-        
+        run_home()
     elif choice == menu[1]:
        pass
     elif choice == menu[2]:
